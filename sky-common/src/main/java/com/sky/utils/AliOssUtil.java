@@ -1,3 +1,4 @@
+/*
 package com.sky.utils;
 
 import com.aliyun.oss.ClientException;
@@ -19,13 +20,15 @@ public class AliOssUtil {
     private String accessKeySecret;
     private String bucketName;
 
-    /**
+    */
+/**
      * 文件上传
      *
      * @param bytes
      * @param objectName
      * @return
-     */
+     *//*
+
     public String upload(byte[] bytes, String objectName) {
 
         // 创建OSSClient实例。
@@ -66,3 +69,4 @@ public class AliOssUtil {
         return stringBuilder.toString();
     }
 }
+*/

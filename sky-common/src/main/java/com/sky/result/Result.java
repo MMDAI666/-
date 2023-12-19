@@ -6,7 +6,10 @@ import java.io.Serializable;
 
 /**
  * 后端统一返回结果
+ *
  * @param <T>
+ * @author 萌萌哒AI
+ * @date 2023/12/19
  */
 @Data
 public class Result<T> implements Serializable {

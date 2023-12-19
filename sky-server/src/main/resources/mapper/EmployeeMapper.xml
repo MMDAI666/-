@@ -2,4 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.EmployeeMapper">
+    <select id="page" resultType="com.sky.entity.Employee">
+        select * from employee
+        <where>
+            <if test="name !=null and name !=''">
+                name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+    <update id="update">
+        update employee
+        <set>
+            <if test="name !=null and name !=''">name =#{name},</if>
+        </set>
+        <set>
+            <if test="username !=null and username !=''">username =#{username},</if>
+        </set>
+        <set>
+            <if test="password !=null and password !=''">password =#{password},</if>
+        </set>
+        <set>
+            <if test="phone !=null and phone !=''">phone =#{phone},</if>
+        </set>
+        <set>
+            <if test="sex !=null and sex !=''">sex =#{sex},</if>
+        </set>
+        <set>
+            <if test="idNumber !=null and idNumber !=''">id_number =#{idNumber},</if>
+        </set>
+        <set>
+            <if test="status !=null">status =#{status},</if>
+        </set>
+        <set>
+            <if test="updateUser !=null">update_user =#{updateUser},</if>
+        </set>
+        <set>
+            <if test="updateTime !=null">update_time =#{updateTime},</if>
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

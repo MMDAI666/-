@@ -7,6 +7,7 @@ import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
+import com.sky.dto.EmployeeEditPasswordDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
@@ -82,7 +83,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //设置为当前用户id
         employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
-        BaseContext.removeCurrentId();
+//        BaseContext.removeCurrentId();
         employeeMapper.save(employee);
     }
 
@@ -115,5 +116,42 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.update(em);
     }
 
+    /**
+     * 根据Id查询员工信息
+     * @param id
+     * @return {@link Employee}
+     */
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("****");
+        return employee;
+    }
 
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee=new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateTime(LocalDateTime.now());
+        employeeMapper.update(employee);
+    }
+
+    @Override
+    public void editPassword(EmployeeEditPasswordDTO editPasswordDTO) {
+        Employee employee=employeeMapper.getById(editPasswordDTO.getId());
+        //对比密码，错误抛异常
+        String oldPassword=editPasswordDTO.getOldPassword();
+        oldPassword=DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        if (!oldPassword.equals(employee.getPassword()))
+        {
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        }
+        //更新密码
+        String newPassworld= DigestUtils.md5DigestAsHex(editPasswordDTO.getNewPassword().getBytes());
+        employee.setPassword(newPassworld);
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateTime(LocalDateTime.now());
+        employeeMapper.update(employee);
+    }
 }

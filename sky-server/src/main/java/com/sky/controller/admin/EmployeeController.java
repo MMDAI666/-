@@ -1,7 +1,9 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
+import com.sky.dto.EmployeeEditPasswordDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
@@ -117,5 +119,43 @@ public class EmployeeController {
         log.info("启用启用禁用员工账号：{}，{}",status,id);
         employeeService.startOrStop(status,id);
         return  Result.success();
+    }
+
+    /**
+     * 根据Id查询
+     * @param id
+     * @return {@link Result}<{@link Employee}>
+     */
+    @GetMapping("/{id}")
+    public Result<Employee> getbyId(@PathVariable Long id)
+    {
+        log.info("查询id为{}的员工信息",id);
+        return Result.success(employeeService.getById(id));
+    }
+
+    /**
+     * 编辑员工信息
+     *
+     * @return {@link Result}
+     */
+    @PutMapping
+    public Result update(@RequestBody EmployeeDTO employeeDTO)
+    {
+        log.info("修改员工信息为：{}",employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
+    /**
+     * 修改密码
+     * @return {@link Result}
+     */
+    @PutMapping("/editPassword")
+    public Result editPassword(@RequestBody EmployeeEditPasswordDTO editPasswordDTO)
+    {
+        editPasswordDTO.setId(BaseContext.getCurrentId());
+        log.info("修改{}的密码，旧密码：{}，新密码{}",editPasswordDTO.getId(),editPasswordDTO.getOldPassword(),editPasswordDTO.getNewPassword());
+        employeeService.editPassword(editPasswordDTO);
+        return Result.success();
     }
 }

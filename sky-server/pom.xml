@@ -11,6 +11,8 @@
     <artifactId>sky-server</artifactId>
     <dependencies>
 
+
+
         <dependency>
             <groupId>com.bun</groupId>
             <artifactId>sky-common</artifactId>

@@ -116,7 +116,7 @@ public class EmployeeController {
 //    @Operation(summary = "启用禁用员工账号")
     public Result startOrStop(@PathVariable Integer status,Long id)
     {
-        log.info("启用启用禁用员工账号：{}，{}",status,id);
+        log.info("启用禁用员工账号：目前状态：{}，员工id：{}",status,id);
         employeeService.startOrStop(status,id);
         return  Result.success();
     }

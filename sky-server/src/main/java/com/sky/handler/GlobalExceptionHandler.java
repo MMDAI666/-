@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
             log.info(msg);
             return Result.error(msg);
         }
-        log.info(MessageConstant.UNKNOWN_ERROR);
+        log.info(ex.toString());
         return Result.error(MessageConstant.UNKNOWN_ERROR);
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sky.mapper.DishFlavorMapper">
+<mapper namespace="com.sky.mapper.SetmealDishMapper">
 
 
     <insert id="insertBeach">
@@ -10,10 +10,10 @@
             (#{df.dishId},#{df.name},#{df.value})
         </foreach>
     </insert>
-    <delete id="deleteByDishIds">
-        delete from dish_flavor where dish_id in
-        <foreach collection="dish_ids" item="dish_id" separator="," open="(" close=")">
-            #{dish_id}
+    <select id="getByIds" resultType="java.lang.Long">
+        select setmeal_id from setmeal_dish where dish_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
         </foreach>
-    </delete>
+    </select>
 </mapper>

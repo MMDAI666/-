@@ -9,6 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
+/**
+ * 通用接口
+ * @author 萌萌哒AI
+ * @date 2023/12/26
+ */
 @RestController
 @RequestMapping("/admin/common")
 @Slf4j

@@ -62,6 +62,10 @@ public class SetmealServiceimpl implements SetmealService {
         return new PageResult(page.getTotal(),page.getResult());
     }
 
+    /**
+     * 批量删除套餐及其他信息
+     * @param ids
+     */
     @Override
     @Transactional
     public void deleteBarch(List<Long> ids) {
@@ -77,5 +81,45 @@ public class SetmealServiceimpl implements SetmealService {
         setmealMapper.deleteBarch(ids);
         //批量删除套餐-菜品信息
         setmealDishMapper.deleteBarch(ids);
+    }
+
+    /**
+     * 根据id查询套餐，用于页面回显
+     *
+     * @param id
+     * @return {@link SetmealVO}
+     */
+    @Override
+    public SetmealVO getById(Long id) {
+        //拿到套餐信息
+        Setmeal setmeal = setmealMapper.getById(id);
+        //拿到套餐关联的菜品信息
+        List<SetmealDish> setmealDishes=setmealDishMapper.getBySetmealId(id);
+        //组成VO对象返回
+        SetmealVO setmealVO=new SetmealVO();
+        BeanUtils.copyProperties(setmeal,setmealVO);
+        setmealVO.setSetmealDishes(setmealDishes);
+        return setmealVO;
+    }
+
+    /**
+     * 修改套餐信息及管理的套餐-菜品信息
+     * @param setmealDTO
+     */
+    @Override
+    @Transactional
+    public void update(SetmealDTO setmealDTO) {
+        Setmeal setmeal=new Setmeal();
+        BeanUtils.copyProperties(setmealDTO,setmeal);
+        //修改套餐信息
+        setmealMapper.update(setmeal);
+        //删除套餐-菜品信息
+        setmealDishMapper.deleteBySetmealId(setmealDTO.getId());
+        //重新插入信息
+        Long id=setmeal.getId();
+        if (id==null)throw new  BaseException("套餐插入失败");
+        List<SetmealDish> setmealDishes=setmealDTO.getSetmealDishes();
+        setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(id));
+        setmealDishMapper.insertBatch(setmealDishes);
     }
 }

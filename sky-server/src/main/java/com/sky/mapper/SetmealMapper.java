@@ -51,5 +51,10 @@ public interface SetmealMapper {
      * 批量删除套餐信息
      * @param ids
      */
+
     void deleteBarch(List<Long> ids);
+
+
+    @AutoFill(OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }

@@ -25,7 +25,7 @@
                 and d.category_id=#{categoryId}
             </if>
             <if test="status !=null">
-                and c.status=#{status}
+                and d.status=#{status}
             </if>
         </where>
         order by d.create_time desc

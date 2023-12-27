@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 套餐相关接口
  * @author 萌萌哒AI
@@ -48,5 +50,16 @@ public class SetmealController {
         return Result.success(pageResult);
     }
 
-
+    /**
+     * 批量删除套餐
+     * @param ids
+     * @return {@link Result}
+     */
+    @DeleteMapping
+    public Result delete(@RequestParam List<Long> ids)
+    {
+        log.info("删除{}",ids);
+        setmealService.deleteBarch(ids);
+        return Result.success();
+    }
 }

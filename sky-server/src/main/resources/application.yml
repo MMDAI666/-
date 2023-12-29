@@ -37,8 +37,18 @@ logging:
 sky:
   jwt:
     # 设置jwt签名加密时使用的秘钥
-    admin-secret-key: this is a test secret key from bun
+    admin-secret-key: this is a admin secret key from bun
     # 设置jwt过期时间
     admin-ttl: 72000000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: this is a user secret key from bun
+    # 设置jwt过期时间
+    user-ttl: 72000000
+    # 设置前端传递过来的令牌名称
+    user-token-name: authentication
+
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}

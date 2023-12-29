@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 管理端店铺相关接口
+ * @author 萌萌哒AI
+ * @date 2023/12/29
+ */
 @RestController("adminShopControlller")
 @RequestMapping("/admin/shop")
 @Slf4j

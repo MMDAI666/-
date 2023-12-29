@@ -7,25 +7,16 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sky_take_out
-    username: root
-    password: 003913
-
-# springdoc-openapi项目配置
-#springdoc:
-#  swagger-ui:
-#    enabled: true
-#    path: /swagger-ui.html
-#  #    tags-sorter: alpha
-##    operations-sorter: alpha
-#  api-docs:
-#    enabled: true
-#    path: /v3/api-docs
-#  group-configs:
-#    - group: 'default'
-#      paths-to-match: '/**'
-#      packages-to-scan: com.sky
+    driver-class-name: ${sky.datasource.driver-class-name}
+    url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}
+    username: ${sky.datasource.username}
+    password: ${sky.datasource.password}
+  data:
+    redis:
+      host: ${sky.redis.host}
+      port: ${sky.redis.port}
+      password: ${sky.redis.password}
+      database: ${sky.redis.database}
 
 mybatis:
   #mapper配置文件

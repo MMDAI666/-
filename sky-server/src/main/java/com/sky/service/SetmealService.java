@@ -21,7 +21,7 @@ public interface SetmealService {
      * @param setmealPageQueryDTO
      * @return {@link PageResult}
      */
-    PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+    public PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
 
     /**
      * 批量删除套餐

@@ -46,7 +46,7 @@ public class SetmealController {
      * @return {@link Result}<{@link PageResult}>
      */
     @GetMapping("/page")
-    private Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO)
+    public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO)
     {
         log.info("查询第{}页，每页{}条",setmealPageQueryDTO.getPage(),setmealPageQueryDTO.getPageSize());
         PageResult pageResult=setmealService.pageQuery(setmealPageQueryDTO);

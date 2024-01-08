@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class SetmealServiceimpl implements SetmealService {
+public class SetmealServiceImpl implements SetmealService {
 
     @Autowired
     private SetmealMapper setmealMapper;

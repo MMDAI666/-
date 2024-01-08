@@ -38,4 +38,22 @@ public class ShoppingCartController {
     {
         return Result.success(shoppingCarService.show());
     }
+
+    /**
+     * 减少份数
+     * @return {@link Result}
+     */
+    @PostMapping("/sub")
+    public Result sub(@RequestBody ShoppingCartDTO shoppingCartDTO)
+    {
+        shoppingCarService.sub(shoppingCartDTO);
+        return Result.success();
+    }
+
+    @DeleteMapping("/clean")
+    public Result clean()
+    {
+        shoppingCarService.clean();
+        return Result.success();
+    }
 }

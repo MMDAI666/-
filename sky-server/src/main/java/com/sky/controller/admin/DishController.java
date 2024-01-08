@@ -10,6 +10,8 @@ import com.sky.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +35,7 @@ public class DishController {
      * @return {@link Result}
      */
     @PostMapping
+    @CacheEvict(cacheNames = "dishCache",key = "#dto.categoryId")
     public Result save(@RequestBody DishDTO dto)
     {
         log.info("新增菜品信息：{}。。",dto);
@@ -60,6 +63,7 @@ public class DishController {
      * @return {@link Result}
      */
     @DeleteMapping
+    @CacheEvict(cacheNames = "dishCache",allEntries = true)
     public Result delete(@RequestParam List<Long> ids)
     {
         log.info("删除{}",ids);
@@ -86,6 +90,7 @@ public class DishController {
      * @return {@link Result}
      */
     @PutMapping
+    @CacheEvict(cacheNames = "dishCache",allEntries = true)
     public Result update(@RequestBody DishDTO dto)
     {
         log.info("修改菜品信息为：{}",dto);
@@ -100,6 +105,7 @@ public class DishController {
      * @return {@link Result}
      */
     @PostMapping("status/{status}")
+    @CacheEvict(cacheNames = "dishCache",allEntries = true)
     public Result startOrStop(@PathVariable Integer status,Long id)
     {
         log.info("修改{}状态为{}",id,status);

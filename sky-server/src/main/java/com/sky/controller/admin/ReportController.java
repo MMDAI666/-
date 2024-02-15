@@ -7,6 +7,7 @@ import com.sky.vo.OrderReportVO;
 import com.sky.vo.SalesTop10ReportVO;
 import com.sky.vo.TurnoverReportVO;
 import com.sky.vo.UserReportVO;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -95,5 +96,15 @@ public class ReportController {
         log.info("统计从{}到{}的销量排名Top10",begin,end);
         SalesTop10ReportVO salesTop10ReportVO= reportService.getSalesTop10(begin, end);
         return Result.success(salesTop10ReportVO);
+    }
+
+    /**
+     * 导出数据报表
+     * @param response
+     */
+    @GetMapping("/export")
+    public void export(HttpServletResponse response)
+    {
+        reportService.exportBusinessData(response);
     }
 }
